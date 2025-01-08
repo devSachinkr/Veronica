@@ -10,8 +10,8 @@ import ClerkAuthState from "../clerk-auth-state";
 import { HelpDuoToneWhite } from "@/icons";
 import { Subscription } from "../subscription";
 import UpgradeCard from "../sidebar/upgrade-card";
-import VeronicaLogo from "@/icons/veronica-logo";
 import CreateAutomation from "../create-automation";
+import MainBreadCrumbs from "../main-bread-crumbs";
 
 type Props = {
   slug: string;
@@ -63,6 +63,7 @@ const Navbar = ({ slug }: Props) => {
           <Search className="cursor-not-allowed" />
           <CreateAutomation />
         </div>
+        <MainBreadCrumbs page={page===slug?"Home":page} slug={slug} />
       </div>
     )
   );

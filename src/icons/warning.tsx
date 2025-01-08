@@ -4,7 +4,7 @@ export const Warning = () => {
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            fill="none"
+            fill="fill"
             xmlns="http://www.w3.org/2000/svg"
         >
             <circle
@@ -29,8 +29,8 @@ export const Warning = () => {
                     y2="22"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#3352CC" />
-                    <stop offset="1" stop-color="#1C2D70" />
+                    <stop stop-color="#fff" />
+                    <stop offset="1" stop-color="#fff" />
                 </linearGradient>
             </defs>
         </svg>

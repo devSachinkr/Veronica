@@ -17,7 +17,7 @@ const SidebarItems = ({ page, slug }: Props) => {
       }`}
       className={cn(
         "flex gap-x-2 rounded-full p-3 ",
-        page === item.label.toLowerCase() && "bg-[#f1c240]",
+        page === item.label.toLowerCase() && "bg-[#050505]",
         page === slug && item.label.toLowerCase() === "home"
           ? "bg-[#050505]"
           : " text-[#9B9Ca0]"

@@ -125,7 +125,7 @@
 .radial--gradient {
   background-image: radial-gradient(
     ellipse farthest-side,
-    rgba(240, 236, 17, 0.78) 20%,
+    rgba(240, 236, 17, 0.099) 20%,
     #09090b 100%
   );
   background-size: 100% 100%;
@@ -145,7 +145,7 @@
 .radial--gradient--automations {
   background-image: radial-gradient(
     at top left,
-   rgba(240, 236, 17, 0.78)  40%,
+   rgba(240, 236, 17, 0.1)  40%,
     #1d1d1d 60%
   );
   background-size: 40% 100%;
@@ -185,4 +185,10 @@
 
 .hide-scrollbar {
   overflow-y: overlay;
+}
+
+.text-gradient {
+    background: linear-gradient(to right, #eec12f, rgb(129, 148, 24), #849207);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

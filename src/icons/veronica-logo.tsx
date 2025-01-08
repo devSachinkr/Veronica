@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const VeronicaLogo = () => {
   return (
@@ -50,6 +50,6 @@ const VeronicaLogo = () => {
       </defs>
     </svg>
   );
-}
+};
 
-export default VeronicaLogo
+export default VeronicaLogo;
