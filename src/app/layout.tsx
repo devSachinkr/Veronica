@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import ReactQueryProvider from "@/providers/react-query";
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -27,7 +28,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <ReactQueryProvider>
             {children}
+            </ReactQueryProvider>
             <Toaster />
           </ThemeProvider>
         </body>
