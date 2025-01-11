@@ -18,10 +18,26 @@ export const getMonth = ({ month }: { month: number }) => {
     "September",
     "October",
     "November",
-    "December"
+    "December",
   ];
   if (month < 1 || month > 12) {
     return "Invalid month";
   }
   return months[month - 1];
+};
+
+export const duplicateValidation = ({
+  arr,
+  el,
+}: {
+  arr: string[];
+  el: string;
+}) => {
+  if (!arr.find((t) => t === el)) {
+    arr.push(el);
+    return arr;
+  } else {
+    arr = arr.filter((t) => t !== el);
+    return arr;
+  }
 };

@@ -5,15 +5,17 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import ReactQueryProvider from "@/providers/react-query";
+import ReduxProvider from "@/providers/redux";
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Veronica",
-  description: "Veronica is a free  platform for building and managing your digital garden.",
+  description:
+    "Veronica is a free  platform for building and managing your digital garden.",
 };
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -21,16 +23,16 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <head />
-        <body className={jakarta.className} suppressHydrationWarning> 
+        <body className={jakarta.className} suppressHydrationWarning>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >
-            <ReactQueryProvider>
-            {children}
-            </ReactQueryProvider>
+            <ReduxProvider>
+              <ReactQueryProvider>{children}</ReactQueryProvider>
+            </ReduxProvider>
             <Toaster />
           </ThemeProvider>
         </body>

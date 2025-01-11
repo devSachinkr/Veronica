@@ -26,7 +26,7 @@ const page = async ({ params: { slug, id } }: Props) => {
       <div className="flex flex-col items-center gap-y-20">
         <AutomationBreadcrumbs id={id} />
         <div className="w-full lg:w-10/12 xl:w-6/12 p-[4px] rounded-xl flex flex-col bg-gradient-to-r from-demon-Yellow via-yellow-200 to-yellow-700  gap-y-3">
-          <div className="w-full   p-2 rounded-xl flex flex-col bg-[#1E1E1E] gap-y-3 z-50">
+          <div className="w-full   p-8 rounded-xl flex flex-col bg-[#1E1E1E] gap-y-3 z-50">
             <div className="flex gap-x-2">
               <CircleAlert className="text-demon-Yellow" size={20} />
               When...

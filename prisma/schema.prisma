@@ -93,7 +93,7 @@ model Listener {
 
 model Trigger {
   id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  type         String
+  type         String?
   Automation   Automation? @relation(fields: [automationId], references: [id], onDelete: Cascade)
   automationId String?     @db.Uuid
 }
