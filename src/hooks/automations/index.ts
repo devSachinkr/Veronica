@@ -1,23 +1,25 @@
 "use client";
 import {
+  attachPosts,
   createAutomations,
   createListner,
   deleteKeyword,
   getAllAutomations,
   getAutomationInfo,
+  getProfilePosts,
   saveKeyword,
   saveTriger,
   updateAutomation,
 } from "@/actions/automations";
+import { TRIGGER } from "@/lib/redux/slices/automation";
+import { AppDispatch, useAppSelector } from "@/lib/redux/store";
 import { PromptSchema } from "@/lib/schema";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { z } from "zod";
 import { useMutationData } from "../mutation";
 import { useZodForm } from "../zod-form";
-import { AppDispatch, useAppSelector } from "@/lib/redux/store";
-import { useDispatch } from "react-redux";
-import { TRIGGER } from "@/lib/redux/slices/automation";
 const useAutomations = () => {
   const { data } = useQuery({
     queryKey: ["user-automations"],
@@ -46,6 +48,13 @@ const useAutomation = ({ automatonId }: { automatonId: string }) => {
   return { automationInfo };
 };
 
+const useAutomationInfo = ({ automatonId }: { automatonId: string }) => {
+  const { data: automationInfo, isFetching } = useQuery({
+    queryKey: ["automation-info"],
+    queryFn: () => getAutomationInfo({ id: automatonId }),
+  });
+  return { automationInfo, isFetching };
+};
 const useEditAutomation = ({ automatonId }: { automatonId: string }) => {
   const [edit, setEdit] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -196,15 +205,65 @@ const useKeywords = ({ id }: { id: string }) => {
     keyPressAsEnter,
     isPendingDelete,
     mutateDelete,
-  }
+  };
+};
+
+const useAutomationPosts = () => {
+  const fetchPosts = async () => await getProfilePosts();
+  const { data: automations, isFetching } = useQuery({
+    queryKey: ["instagram-media"],
+    queryFn: () => fetchPosts(),
+  });
+  return { automations, isFetching };
+};
+
+const useAutomationPostsInfo = ({ id }: { id: string }) => {
+  const [posts, setPosts] = useState<
+    {
+      postId: string;
+      caption?: string;
+      media: string;
+      mediaType: "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
+    }[]
+  >([]);
+
+  const selectPost = ({
+    postId,
+    caption,
+    media,
+    mediaType,
+  }: {
+    postId: string;
+    caption?: string;
+    media: string;
+    mediaType: "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
+  }) => {
+    setPosts((prev) => {
+      if (prev.find((p) => p.postId === postId)) {
+        return prev.filter((i) => i.postId !== postId);
+      } else {
+        return [...prev, { postId, caption, media, mediaType }];
+      }
+    });
+  };
+  const { isPending, mutate } = useMutationData({
+    mutationKey: ["attach-posts"],
+    mutationFn: () => attachPosts({ data: posts, automationId: id }),
+    queryKey: "automation-info",
+    onSuccess: () => setPosts([]),
+  });
+  return { isPending, mutate, posts, selectPost };
 };
 
 export {
   useAutomation,
+  useAutomationInfo,
   useAutomations,
   useCreateAutomation,
   useEditAutomation,
+  useKeywords,
   useListner,
   useTriggers,
-  useKeywords,
+  useAutomationPosts,
+  useAutomationPostsInfo,
 };

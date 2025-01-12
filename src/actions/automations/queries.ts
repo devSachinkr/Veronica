@@ -110,6 +110,7 @@ export const findAutomation = async ({ id }: { id: string }) => {
             integrations: true,
           },
         },
+        active: true,
       },
     });
     if (res) {
@@ -184,7 +185,11 @@ export const onAddLintener = async ({
       data: {
         Listener: {
           create: {
-            ...data,
+            prompt: data?.prompt,
+            listener: data?.listener,
+            commentReply: data?.commentReply,
+            commentCount: data?.commentCount,
+            dmCount: data?.dmCount,
           },
         },
       },
@@ -339,6 +344,47 @@ export const onDeleteKeyword = async (data: Prisma.KeywordWhereUniqueInput) => {
     };
   } catch (error) {
     console.log("Keyword delete error: ", error);
+    return {
+      status: 500,
+      message: "Internal server error!",
+    };
+  }
+};
+
+export const addPost = async (
+  data: Prisma.PostUncheckedCreateInput[],
+  automationId: string
+) => {
+  if (automationId)
+    return {
+      status: 404,
+      message: "Automation ID is required!",
+    };
+  try {
+    const res = await db.automation.update({
+      where: {
+        id: automationId,
+      },
+      data: {
+        Posts: {
+          createMany: {
+            data: data,
+          },
+        },
+      },
+    });
+    if (res) {
+      return {
+        status: 200,
+        message: "Post created successfully!",
+      };
+    }
+    return {
+      status: 400,
+      message: "Post not found!",
+    };
+  } catch (error) {
+    console.log("Post create error: ", error);
     return {
       status: 500,
       message: "Internal server error!",

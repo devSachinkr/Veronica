@@ -1,20 +1,21 @@
 "use client";
-import { useAutomation, useTriggers } from "@/hooks/automations";
-import React from "react";
-import ActivateTrigger from "../activate-trigger";
-import GradientText from "../../gradient-text";
 import { Separator } from "@/components/ui/separator";
-import ThenAction from "../then/then-action";
-import TriggerButton from "../trigger-button";
+import { useAutomationInfo, useTriggers } from "@/hooks/automations";
 import { VERONICA_CONSTANTS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import GradientButton from "../../gradient-button";
+import GradientText from "../../gradient-text";
+import { Loader } from "../../loader";
+import ActivateTrigger from "../activate-trigger";
+import ThenAction from "../then/then-action";
+import TriggerButton from "../trigger-button";
 import Keywords from "./keywords";
 type Props = {
   id: string;
 };
 
 const Trigger = ({ id }: Props) => {
-  const { automationInfo } = useAutomation({ automatonId: id });
+  const { automationInfo } = useAutomationInfo({ automatonId: id });
   const { isPending, onSetTrigger, types, onSaveTrigger } = useTriggers({ id });
   if (automationInfo?.data && automationInfo.data.Trigger?.length > 0) {
     return (
@@ -75,6 +76,16 @@ const Trigger = ({ id }: Props) => {
           </div>
         ))}
         <Keywords id={id} />
+        <GradientButton
+          className="pt-2 w-full select-none"
+          btnClassName="w-full "
+          buttonProps={{
+            onClick: () => onSaveTrigger(),
+            disabled: isPending || types?.length === 0,
+          }}
+        >
+          <Loader loading={isPending}>Create Trigger</Loader>
+        </GradientButton>
       </div>
     </TriggerButton>
   );

@@ -18,10 +18,7 @@ const CreateAutomationButton = (props: Props) => {
       className="w-[99%] bg-background-90/90"
       element="div"
       buttonProps={{
-        onClick: () =>
-          mutate({
-           
-          })
+        onClick: () => mutate({}),
       }}
     >
       <Loader loading={isPending}>

@@ -1,8 +1,9 @@
 "use server";
 
-import { Automation, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { onCurrentUser } from "../auth";
 import {
+  addPost,
   createAutomation,
   findAllAutomations,
   findAutomation,
@@ -12,6 +13,7 @@ import {
   onSaveTrigger,
   onUpdateAutomation,
 } from "./queries";
+import { findUserDetails } from "../auth/queries";
 
 export const createAutomations = async () => {
   const user = await onCurrentUser();
@@ -224,6 +226,94 @@ export const deleteKeyword = async ({
     };
   } catch (error) {
     console.log("Keyword delete error: ", error);
+    return {
+      status: 500,
+      message: "Internal server error!",
+    };
+  }
+};
+
+export const getProfilePosts = async () => {
+  const user = await onCurrentUser();
+  try {
+    const res = await findUserDetails({ clerkId: user.data.id });
+    const posts = await fetch(
+      `${process.env.INSTAGRAM_BASE_URL}/me/media?fields=id,caption,media_url,media_type,timestamp&limit=10&access_token=${res?.data?.integrations[0]?.token}`
+    );
+    const parsed = await posts.json();
+    if (parsed) {
+      return {
+        status: 200,
+        data: parsed,
+      };
+    }
+    return {
+      status: 400,
+      message: "Error fetching posts!",
+    };
+  } catch (error) {
+    console.log("Error fetching posts: ", error);
+    return {
+      status: 500,
+      message: "Internal server error!",
+    };
+  }
+};
+
+export const attachPosts = async ({
+  data,
+  automationId,
+}: {
+  data: Prisma.PostUncheckedCreateInput[];
+  automationId: string;
+}) => {
+  await onCurrentUser();
+  try {
+    const res = await addPost({ ...data }, automationId);
+    if (res.status === 200) {
+      return {
+        status: 200,
+        message: "Post attached successfully!",
+      };
+    }
+    return {
+      status: 400,
+      message: "Error attaching post!",
+    };
+  } catch (error) {
+    console.log("Error attaching post: ", error);
+    return {
+      status: 500,
+      message: "Internal server error!",
+    };
+  }
+};
+
+export const activateAutomation = async ({
+  data,
+}: {
+  data: Partial<Prisma.AutomationUpdateInput>;
+}) => {
+  await onCurrentUser();
+  try {
+    const res = await onUpdateAutomation({
+      id: data.id?.toString() as string,
+      data,
+    });
+    if (res.status === 200) {
+      return {
+        status: 200,
+        message: `Automation ${
+          data.active ? "activated" : "deactivated"
+        } `,
+      };
+    }
+    return {
+      status: 400,
+      message: "Error updating automation!",
+    };
+  } catch (error) {
+    console.log("Automation update error: ", error);
     return {
       status: 500,
       message: "Internal server error!",

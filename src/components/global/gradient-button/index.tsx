@@ -36,7 +36,7 @@ const GradientButton = ({
           className
         )}
       >
-        <GradientText element={element} className={cn(textClassName)}>{children}</GradientText>
+        <GradientText element={element} className={cn(textClassName,"flex items-center ")}>{children}</GradientText>
       </div>
     </Button>
   );

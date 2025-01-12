@@ -71,6 +71,12 @@ export const findUserDetails = async ({
         }
       }
     });
+    if (!res) {
+      return {
+        status: 404,
+        message: "User not found!"
+      };
+    }
     return {
       status: 200,
       data: res

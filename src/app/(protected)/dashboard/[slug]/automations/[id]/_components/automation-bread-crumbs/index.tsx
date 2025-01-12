@@ -13,7 +13,7 @@ type Props = {
 
 const AutomationBreadcrumbs = ({ id }: Props) => {
   const { automationInfo } = useAutomation({ automatonId: id });
-  const { disableEdit, enableEdit, edit, inputRef, isPending } =
+  const { enableEdit, edit, inputRef, isPending } =
     useEditAutomation({ automatonId: id });
 
   const { latestVariables } = useMutationDataState({
@@ -57,7 +57,7 @@ const AutomationBreadcrumbs = ({ id }: Props) => {
         </span>
       </div>
 
-      <ActivateAutomationButton />
+      <ActivateAutomationButton id={id} />
     </div>
   );
 };

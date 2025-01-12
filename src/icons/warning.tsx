@@ -29,8 +29,8 @@ export const Warning = () => {
                     y2="22"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#fff" />
-                    <stop offset="1" stop-color="#fff" />
+                    <stop stop-color="#eec12f" />
+                    <stop offset="1" stop-color="#eec12f" />
                 </linearGradient>
             </defs>
         </svg>

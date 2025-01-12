@@ -106,12 +106,12 @@ export const authUser = async () => {
 };
 
 export const getUserInfo = async () => {
-  const user = await onCurrentUser();
+  const {data} = await onCurrentUser();
   try {
     const res = await findUserDetails({
-      id: user.data.id
+      clerkId: data.id
     });
-    if (res) {
+    if (res.status === 200) {
       return {
         status: 200,
         data: res.data
