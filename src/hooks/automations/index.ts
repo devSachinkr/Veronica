@@ -246,6 +246,7 @@ const useAutomationPostsInfo = ({ id }: { id: string }) => {
       }
     });
   };
+  
   const { isPending, mutate } = useMutationData({
     mutationKey: ["attach-posts"],
     mutationFn: () => attachPosts({ data: posts, automationId: id }),

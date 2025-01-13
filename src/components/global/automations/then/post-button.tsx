@@ -49,7 +49,7 @@ const PostButton = ({ id }: Props) => {
                   alt="post-image"
                   className={cn(
                     "hover:opacity-75 transition duration-100",
-                    posts.find((i) => i.postId === p.id) && "opacity-75"
+                    posts.find((i) => i.postId === p.id) && "opacity-75 border-2 border-yellow-500"
                   )}
                 />
               </div>
@@ -57,7 +57,7 @@ const PostButton = ({ id }: Props) => {
           </div>
           <GradientButton
             element="div"
-            textClassName="flex items-center"
+            textClassName="flex items-center pt-2"
             buttonProps={{
               disabled: isPending || isFetching || !posts.length,
               onClick: () => mutate({}),

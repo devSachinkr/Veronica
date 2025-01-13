@@ -269,7 +269,7 @@ export const attachPosts = async ({
 }) => {
   await onCurrentUser();
   try {
-    const res = await addPost({ ...data }, automationId);
+    const res = await addPost(data, automationId);
     if (res.status === 200) {
       return {
         status: 200,
@@ -303,9 +303,7 @@ export const activateAutomation = async ({
     if (res.status === 200) {
       return {
         status: 200,
-        message: `Automation ${
-          data.active ? "activated" : "deactivated"
-        } `,
+        message: `Automation ${data.active ? "activated" : "deactivated"} `,
       };
     }
     return {

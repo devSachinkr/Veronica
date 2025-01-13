@@ -111,6 +111,7 @@ export const findAutomation = async ({ id }: { id: string }) => {
           },
         },
         active: true,
+        id: true,
       },
     });
     if (res) {
@@ -355,7 +356,7 @@ export const addPost = async (
   data: Prisma.PostUncheckedCreateInput[],
   automationId: string
 ) => {
-  if (automationId)
+  if (!automationId)
     return {
       status: 404,
       message: "Automation ID is required!",
