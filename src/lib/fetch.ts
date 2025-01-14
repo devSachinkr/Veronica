@@ -24,10 +24,14 @@ export const sendDm = async ({
   prompt: string;
   token: string;
 }) => {
+  console.log("sending Dm", userId, receiverId, prompt, token);
+
   return await axios.post(
     `${process.env.INSTAGRAM_BASE_URL}/v21.0/${userId}/messages`,
     {
-      recipient_id: { id: receiverId },
+      recipient: {
+        id: receiverId,
+      },
       message: {
         text: prompt,
       },

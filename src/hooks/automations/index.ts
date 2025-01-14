@@ -23,7 +23,7 @@ import { useZodForm } from "../zod-form";
 const useAutomations = () => {
   const { data } = useQuery({
     queryKey: ["user-automations"],
-    queryFn: async () => await getAllAutomations(),
+    queryFn: getAllAutomations,
   });
 
   return { data };
@@ -246,7 +246,7 @@ const useAutomationPostsInfo = ({ id }: { id: string }) => {
       }
     });
   };
-  
+
   const { isPending, mutate } = useMutationData({
     mutationKey: ["attach-posts"],
     mutationFn: () => attachPosts({ data: posts, automationId: id }),

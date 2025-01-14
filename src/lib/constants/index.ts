@@ -1,5 +1,11 @@
-import { AUTOMATION_LISTENERS, AUTOMATION_LISTENERS_PROPS, AUTOMATION_TRIGGER_PROPS, AUTOMATION_TRIGGERS } from "./automation";
+import {
+  AUTOMATION_LISTENERS,
+  AUTOMATION_LISTENERS_PROPS,
+  AUTOMATION_TRIGGER_PROPS,
+  AUTOMATION_TRIGGERS,
+} from "./automation";
 import { PAGE_BREADCRUMBS, PAGE_BREADCRUMBS_PROPS } from "./bread-crumbs";
+import { DASHBOARD_CARD, DASHBOARD_CARD_PROPS } from "./dashboard";
 import {
   INTEGRATION_PLATFORMS,
   INTEGRATION_PLATFORMS_PROPS,
@@ -16,6 +22,7 @@ type VeronicaConstants = {
   integrationPlatforms: INTEGRATION_PLATFORMS_PROPS[];
   automationListeners: AUTOMATION_LISTENERS_PROPS[];
   automationTriggers: AUTOMATION_TRIGGER_PROPS[];
+  dashboardCard: DASHBOARD_CARD_PROPS[];
 };
 
 export const VERONICA_CONSTANTS: VeronicaConstants = {
@@ -26,4 +33,5 @@ export const VERONICA_CONSTANTS: VeronicaConstants = {
   integrationPlatforms: INTEGRATION_PLATFORMS,
   automationListeners: AUTOMATION_LISTENERS,
   automationTriggers: AUTOMATION_TRIGGERS,
+  dashboardCard: DASHBOARD_CARD,
 };

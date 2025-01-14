@@ -47,10 +47,12 @@ export async function POST(req: NextRequest) {
         );
 
         if (automation && automation.data && automation.data.Trigger) {
+
           if (
             automation.data.Listener &&
             automation.data.Listener.listener === "MESSAGE"
           ) {
+
             const direct_message = await sendDm({
               userId: webhook_payload.entry[0].id,
               receiverId: webhook_payload.entry[0].messaging[0].sender.id,
@@ -79,6 +81,7 @@ export async function POST(req: NextRequest) {
             automation.data.Listener.listener === "SMART_AI" &&
             automation.data.User?.subscription?.plan === "PRO"
           ) {
+
             const smart_ai_message = await openai.chat.completions.create({
               model: "gpt-4o",
               messages: [
@@ -88,7 +91,6 @@ export async function POST(req: NextRequest) {
                 },
               ],
             });
-
             if (smart_ai_message.choices[0].message.content) {
               const receiver = createChatHistory({
                 automationId: automation.data.id,
@@ -136,6 +138,7 @@ export async function POST(req: NextRequest) {
         webhook_payload.entry[0].changes &&
         webhook_payload.entry[0].changes[0].field === "comments"
       ) {
+        
         const automation = await getKeyWordAutomation(
           matcher.automationId,
           false
@@ -191,10 +194,12 @@ export async function POST(req: NextRequest) {
                 }
               }
             }
+
             if (
               automation.data.Listener.listener === "SMART_AI" &&
               automation.data.User?.subscription?.plan === "PRO"
             ) {
+
               const smart_ai_message = await openai.chat.completions.create({
                 model: "gpt-4o",
                 messages: [
@@ -204,6 +209,7 @@ export async function POST(req: NextRequest) {
                   },
                 ],
               });
+              console.log(smart_ai_message);
               if (smart_ai_message.choices[0].message.content) {
                 const receiver = createChatHistory({
                   automationId: automation.data.id,

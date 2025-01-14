@@ -155,7 +155,7 @@
 .radial--double--gradient--cards--top {
   background-image: radial-gradient(
     at top left,
-    rgba(240, 236, 17, 0.3)  50%,
+    rgba(240, 236, 17, 0.1)  50%,
     transparent 70%
   );
   background-size: 100% 100%;
@@ -165,7 +165,7 @@
 .radial--double--gradient--cards--bottom {
   background-image: radial-gradient(
     at bottom right,
-    rgba(240, 236, 17, 0.56)  50%,
+    rgba(240, 236, 17, 0.2)  50%,
     transparent 70%
   );
   background-size: 100% 100%;
