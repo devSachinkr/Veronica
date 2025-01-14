@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/prisma";
-import { Prisma, User } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
 export const createUser = async (data: Prisma.UserCreateInput) => {
   if (!data.clerkId) {
