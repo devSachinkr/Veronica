@@ -1,4 +1,3 @@
-console.log("🌍🌍🌍🌍🌍🌍🌍🌍")
 import { findAutomation } from "@/actions/automations/queries";
 import {
   getKeyWordAutomation,
