@@ -16,7 +16,8 @@ export const createUser = async (data: Prisma.UserCreateInput) => {
         ...data,
         subscription: {
           create: {}
-        }
+        },
+        
       },
       select: {
         id: true,

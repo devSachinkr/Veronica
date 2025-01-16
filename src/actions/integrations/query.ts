@@ -120,37 +120,18 @@ export const trackResponse = async ({
 };
 
 export const getIntegration = async (clerkId: string) => {
-  try {
-    const res = await db.user.findUnique({
-      where: {
-        clerkId,
-      },
-      include: {
-        integrations: {
-          where: {
-            name: "INSTAGRAM",
-          },
+  return await db.user.findUnique({
+    where: {
+      clerkId,
+    },
+    select: {
+      integrations: {
+        where: {
+          name: 'INSTAGRAM',
         },
       },
-    });
-    if (res) {
-      return {
-        status: 200,
-        message: "Integration found successfully!",
-        data: res,
-      };
-    }
-    return {
-      status: 400,
-      message: "Integration not found!",
-    };
-  } catch (err) {
-    console.log("getIntegration error: ", err);
-    return {
-      status: 500,
-      message: "Internal server error!",
-    };
-  }
+    },
+  })
 };
 
 export const onCreateIntegration = async (

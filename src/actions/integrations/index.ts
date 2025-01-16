@@ -19,7 +19,7 @@ export const onIntegrate = async ({ code }: { code: string }) => {
   const user = await onCurrentUser();
   try {
     const res = await getIntegration(user.data.id);
-    if (res.status === 200 && res.data?.integrations.length === 0) {
+    if (res && res.integrations.length === 0) {
       const token = await generateTokens(code);
       if (token) {
         const insta_id = await axios.get(
